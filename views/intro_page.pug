@@ -1,0 +1,76 @@
+extends layout
+
+block content
+
+    if currentUser   
+        h1 You are logged in!
+
+        br
+        form(meathod="GET" action=`/chatroom/${currentUser._id.toString()}/update_account_information`)
+            input(type="hidden")
+            button(type="submit") Update Account Information
+        br
+
+        br
+        form(meathod="GET" action=`/chatroom/${currentUser._id.toString()}/delete_account`)
+            input(type="hidden")
+            button(type="submit") Delete Account
+        br
+
+        p Welcome back #{currentUser.first_name}
+        p your id is #{currentUser._id}
+
+        br
+        br
+        form(action="", method="POST")
+            label(for="share_comment") Add to the discussion!
+            br
+            textarea(type=text, name="share_comment" required value=(undefined===message? "" : message.message) placeholder="Enter your comment/message here, and click share to post." cols="50" rows="5")
+            br
+            input(type="hidden", name="userId" value=currentUser._id)
+            br
+            button(type="submit") Share
+
+        if errors 
+            ul 
+                for error in errors 
+                    li!= error.msg
+
+        br
+        br
+        form(meathod="GET" action="/chatroom/log_out")
+            input(type="hidden")
+            button(type="submit") Log out
+
+        br
+        br
+        //- figure out a way to display messages 
+        //- model values: message, author, updated
+        if all_messages
+            each message in all_messages 
+                //- p #[strong #{message.author.first_name}]
+                //- p #{message.author._id} //specific user id
+                h1 "#{message.message}"
+                h3 #[strong -#{message.author.first_name}]
+                br
+                p #[em #{message.date}]
+                if message.author._id.toString() === currentUser._id.toString()
+                    a(href=`/chatroom/${message._id.toString()}/delete_comment`) Delete post
+                //- h1=(message.author._id.toString()===currentUser._id.toString())? "MATCH" : "DON'T MATCH"
+                hr
+                br
+                    
+    else
+        h1 #{title}
+
+        br
+
+        form(meathod="GET" action="/chatroom/login")
+            input(type="hidden")
+            button(type="submit") Login 
+
+        br
+
+        form(meathod="GET" action="/chatroom/sign_up")
+            input(type="hidden")
+            button(type="submit") Sign-up

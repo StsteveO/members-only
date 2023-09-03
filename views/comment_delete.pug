@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    h1 #{title}
+    br
+    h2 #[strong Are you sure you want to delete the following comment/message?]
+    h2 #[strong This action cannot be undone.]
+    br
+    br
+    h2 "#{message.message}"
+    p #{message.date}
+    br
+    br
+    form(action="", method="POST")
+        input(type="hidden", name="deleteComment" value=message._id)
+        br
+        button(type="submit") Yes, Delete.
+    br
+    br
+
+    form(action="/", method="GET")
+        input(type="hidden")
+        button(type="submit") No, ignore, and return. 
+
