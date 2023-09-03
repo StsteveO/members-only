@@ -44,6 +44,14 @@ exports.sign_up_form_POST = [
     .trim()
     .escape(),
 
+    body("confirm_password")
+    .custom((value, {req})=>{
+      if(value !== req.body.password){
+        throw new Error("Passwords do not match.");
+      }
+      return true;
+    }),
+
     //process req after validation and sanitation
 
     asyncHandler(async (req, res, next)=>{

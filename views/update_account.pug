@@ -3,23 +3,41 @@ extends layout
 block content
     h1 #{title}
     br
-    h2 #[strong Are you sure you want to delete the following comment/message?]
-    h2 #[strong This action cannot be undone.]
-    br
-    br
-    h2 "#{message.message}"
-    p #{message.date}
-    br
-    br
-    form(action="", method="POST")
-        input(type="hidden", name="deleteComment" value=message._id)
-        br
-        button(type="submit") Yes, Delete.
-    br
-    br
+    h2 #[strong Please update your account as needed with new information.]
+    h2 #[strong Once submitted, this will be your new information to log in.]
 
+
+    form(action="", method="post")
+        label(for="first_name") First Name: 
+        br
+        input(type="text", name="first_name" required value=(undefined===user? "" : user.first_name))
+        br
+        br
+        label(for="username") Username: 
+        br
+        input(type="text", name="username" required value=(undefined===user? "" : user.username))
+        br
+        br
+        label(for="password") Password: 
+        br
+        input(type="password", name="password" required)
+        br
+        br
+        label(for="confirm_password") Confirm Password: 
+        br
+        input(type="password", name="confirm_password" required)
+        br
+        br
+        button(type="submit") Update My Information.
+    
+    br
+    if errors 
+        ul 
+            for error in errors 
+                li!= error.msg
+
+    br
+    br
     form(action="/", method="GET")
         input(type="hidden")
         button(type="submit") No, ignore, and return. 
-
-//- NEED TO CHANGE!!!
