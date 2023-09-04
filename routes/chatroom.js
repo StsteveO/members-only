@@ -26,6 +26,8 @@ router.get("/", intro_page_controller.index); //intro page
 
 router.post("/", intro_page_controller.share_comment_POST);
 
+router.get("/no_account_found", account_controller.no_account_found_GET);
+
 router.get("/login", login_controller.login_form_GET);
 
 router.post("/login", login_controller.login_form_POST);

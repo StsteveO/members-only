@@ -19,6 +19,6 @@ exports.login_form_GET= function (req, res, next){
 exports.login_form_POST = passport.authenticate(
   "local",{
     successRedirect: "/", //place to go when succeeds
-    failureRedirect: "/" //can redirect to other page if fails
+    failureRedirect: "/chatroom/no_account_found" //can redirect to other page if fails
   }
 );

@@ -174,7 +174,9 @@ button{
 .sign-up-page,
 .login-page,
 .update-account-page,
-.delete-account-page{
+.delete-account-page,
+.no-account-found,
+.comment-delete-page{
   padding: 3rem;
 }
 /* ---------- HERE ---------- */

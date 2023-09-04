@@ -11,6 +11,12 @@ const Message = require("../models/message-model");
 //   res.render("index", { title: "Express" });
 // };
 
+exports.no_account_found_GET= function (req, res, next){
+  res.render("no_account_found", {
+    title: "No Account Found",
+  })
+}
+
 exports.delete_account_GET= 
     //this has an id of the user
     asyncHandler(async (req, res, next)=>{
