@@ -2,75 +2,113 @@ extends layout
 
 block content
 
-    if currentUser   
-        h1 You are logged in!
+    if currentUser  
+        div.intro-page-logged-in-content 
+            h1.intro-page-logged-in-greeting  Hi #{currentUser.first_name}
 
-        br
-        form(meathod="GET" action=`/chatroom/${currentUser._id.toString()}/update_account_information`)
-            input(type="hidden")
-            button(type="submit") Update Account Information
-        br
+            //- form(meathod="GET" action=`/chatroom/${currentUser._id.toString()}/update_account_information`)
+            //-     input(type="hidden")
+            //-     button(type="submit") Update Account Information
 
-        br
-        form(meathod="GET" action=`/chatroom/${currentUser._id.toString()}/delete_account`)
-            input(type="hidden")
-            button(type="submit") Delete Account
-        br
+            //- form(meathod="GET" action=`/chatroom/${currentUser._id.toString()}/delete_account`)
+            //-     input(type="hidden")
+            //-     button(type="submit") Delete Account
 
-        p Welcome back #{currentUser.first_name}
-        p your id is #{currentUser._id}
-
-        br
-        br
-        form(action="", method="POST")
-            label(for="share_comment") Add to the discussion!
-            br
-            textarea(type=text, name="share_comment" required value=(undefined===message? "" : message.message) placeholder="Enter your comment/message here, and click share to post." cols="50" rows="5")
-            br
-            input(type="hidden", name="userId" value=currentUser._id)
-            br
-            button(type="submit") Share
-
-        if errors 
-            ul 
-                for error in errors 
-                    li!= error.msg
-
-        br
-        br
-        form(meathod="GET" action="/chatroom/log_out")
-            input(type="hidden")
-            button(type="submit") Log out
-
-        br
-        br
-        //- figure out a way to display messages 
-        //- model values: message, author, updated
-        if all_messages
-            each message in all_messages 
-                //- p #[strong #{message.author.first_name}]
-                //- p #{message.author._id} //specific user id
-                h1 "#{message.message}"
-                h3 #[strong -#{message.author.first_name}]
+            form(action="", method="POST")
+                label(for="share_comment") Share your thoughts or reply to someone else's!
                 br
-                p #[em #{message.date}]
-                if message.author._id.toString() === currentUser._id.toString()
-                    a(href=`/chatroom/${message._id.toString()}/delete_comment`) Delete post
-                //- h1=(message.author._id.toString()===currentUser._id.toString())? "MATCH" : "DON'T MATCH"
-                hr
+                textarea(type=text, name="share_comment" required value=(undefined===message? "" : message.message) placeholder="Enter your comment/message here, and click share to post." cols="80" rows="10")
+                input(type="hidden", name="userId" value=currentUser._id)
                 br
+                br
+                button(type="submit") Share
+
+            if errors 
+                ul 
+                    for error in errors 
+                        li!= error.msg
+
+            //- form(meathod="GET" action="/chatroom/log_out")
+            //-     input(type="hidden")
+            //-     button(type="submit") Log out
+
+            //- figure out a way to display messages 
+            //- model values: message, author, updated
+            if all_messages
+                div.all-messages-container
+                    each message in all_messages 
+                        if message.author._id.toString() === currentUser._id.toString()
+                            div.user-message
+                                h1 "#{message.message}"
+                                //- h4 #[strong #{message.author.first_name}]
+                                br
+                                p #[em #{message.date}]
+                                a(href=`/chatroom/${message._id.toString()}/delete_comment`) Delete post
+                        else 
+                            div.other-clients-messages
+                                h3 #[strong #{message.author.first_name}]
+                                h1 "#{message.message}"
+                                br
+                                p #[em #{message.date}]
+
+                        //-------------------original code
+                        //- //- //- p #[strong #{message.author.first_name}]
+                        //- //- //- p #{message.author._id} //specific user id
+                        //- div.individual-message
+                        //-     h3 #[strong #{message.author.first_name}]
+                        //-     h1 "#{message.message}"
+                        //-     //- //- h4 #[strong #{message.author.first_name}]
+                        //-     br
+                        //-     p #[em #{message.date}]
+                        //-     if message.author._id.toString() === currentUser._id.toString()
+                        //-         a(href=`/chatroom/${message._id.toString()}/delete_comment`) Delete post
+                        //-     //- //- h1=(message.author._id.toString()===currentUser._id.toString())? "MATCH" : "DON'T MATCH"
+                        //-     hr
+                        //-     br
+                        //-----------------------------------
                     
     else
-        h1 #{title}
+        div.intro-page-pic
+            div.intro-page-pic-credit
+                Photo by <a href="https://unsplash.com/@brookecagle?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Brooke Cagle</a> on <a href="https://unsplash.com/photos/woman-sitting-on-brown-wooden-chair-while-using-silver-laptop-computer-in-room-WHWYBmtn3_0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
-        br
+        div.intro-page-hook
+            div.intro-page-hook-content
+                h1 The internet is a 
+                    span.em_word #[strong BIG] 
+                    span place
+                h1 Help make it a 
+                    span.shrink_word little 
+                    span smaller 
+                h1 Join the most excusive messaging club 
+                h1 [cM]clubMessage
 
-        form(meathod="GET" action="/chatroom/login")
-            input(type="hidden")
-            button(type="submit") Login 
+        div.intro-page-features
+            h1 [cM]clubMessage Features
+            ul  
+                li Create your own username and password 
+                li Update your account information when needed 
+                li Submit your own messages/comments 
+                li Delete old unwanted messages/comments you submitted
+                li Delete your account if you want and start all over
 
-        br
+        div.intro-page-testimonial
+            h1 #[em "It's amazing seeing what friends are thinking about. It's also a relief that I can update my information, remove old comments, or delete my account whenever I want."]
+            h2 - [cM]clubMessage Client
 
-        form(meathod="GET" action="/chatroom/sign_up")
-            input(type="hidden")
-            button(type="submit") Sign-up
+        div.intro-page-call-to-action
+            h1 See what all the hype is about, act now!
+
+            div.intro-page-call-to-action-options
+
+                div.intro-login
+                    h2 Already a member?
+                    form(meathod="GET" action="/chatroom/login")
+                        input(type="hidden")
+                        button(type="submit") Login
+
+                div.intro-sign-up
+                    h2 Want to join?
+                    form(meathod="GET" action="/chatroom/sign_up")
+                        input(type="hidden")
+                        button(type="submit") Sign-up

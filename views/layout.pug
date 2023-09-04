@@ -5,5 +5,42 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     block header
+
+      div.header
+
+        if currentUser  
+          h1.header-title [cM] clubMessage
+
+          div.nav-btns
+            form(meathod="GET" action="/")
+              input(type="hidden")
+              button(type="submit") Home 
+              
+            form(meathod="GET" action=`/chatroom/${currentUser._id.toString()}/update_account_information`)
+              input(type="hidden")
+              button(type="submit") Update Account Information 
+
+            form(meathod="GET" action=`/chatroom/${currentUser._id.toString()}/delete_account`)
+              input(type="hidden")
+              button(type="submit") Delete Account 
+
+            form(meathod="GET" action="/chatroom/log_out")
+              input(type="hidden")
+              button(type="submit") Log out
+        else  
+          h1.header-title [cM] clubMessage
+
+          div.nav-btns
+            form(meathod="GET" action="/")
+              input(type="hidden")
+              button(type="submit") Home 
+
+            form(meathod="GET" action="/chatroom/sign_up")
+              input(type="hidden")
+              button(type="submit") Sign-up 
+
+            form(meathod="GET" action="/chatroom/login")
+              input(type="hidden")
+              button(type="submit") Login
       
     block content

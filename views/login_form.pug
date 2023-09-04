@@ -1,17 +1,18 @@
 extends layout
 
 block content
-  h1 #{title}
-  br
-  form(action="", method="post")
-    label(for="username") Username: 
+  div.login-page
+    h1 #{title}
     br
-    input(type="text", name="username")
-    br
-    br
-    label(for="password") Password: 
-    br
-    input(type="password", name="password")
-    br
-    br
-    button(type="submit") Login
+    form(action="", method="post")
+      label(for="username") Username: 
+      br
+      input(type="text", name="username")
+      br
+      br
+      label(for="password") Password: 
+      br
+      input(type="password", name="password")
+      br
+      br
+      button(type="submit") Login to your account

@@ -1,36 +1,38 @@
 extends layout
 
 block content
-  h1 #{title}
-  br
-  form(action="", method="post")
-    label(for="first_name") First Name: 
+  div.sign-up-page
+    h1 #{title}
     br
-    input(type="text", name="first_name" required value=(undefined===user? "" : user.first_name))
-    br
-    br
-    label(for="username") Username: 
-    br
-    input(type="text", name="username" required value=(undefined===user? "" : user.username))
-    br
-    br
-    label(for="password") Password: 
-    br
-    input(type="password", name="password" required)
-    br
-    br
-    label(for="confirm_password") Confirm Password: 
-    br
-    input(type="password", name="confirm_password" required)
-    br
-    br
-    button(type="submit") Submit
-    br
-    br
-    if errors 
-        ul 
-            for error in errors 
-                li!= error.msg
+    div.sign-up-form
+      form(action="", method="post")
+        label(for="first_name") First Name: 
+        br
+        input(type="text", name="first_name" required value=(undefined===user? "" : user.first_name))
+        br
+        br
+        label(for="username") Username: 
+        br
+        input(type="text", name="username" required value=(undefined===user? "" : user.username))
+        br
+        br
+        label(for="password") Password: 
+        br
+        input(type="password", name="password" required)
+        br
+        br
+        label(for="confirm_password") Confirm Password: 
+        br
+        input(type="password", name="confirm_password" required)
+        br
+        br
+        button(type="submit") Submit
+      br
+      br
+      if errors 
+          ul 
+              for error in errors 
+                  li!= error.msg
 
     //- names: first_name, username, password, confirm_password
     //- also brought in "user" for improperly filled forms

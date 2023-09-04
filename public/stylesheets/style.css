@@ -1,8 +1,220 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+:root {
+  font-family: "Lucida Grande", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: black;
+  background-color: white;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  /* --custom name: value; */
+  /* --navy-clr: #476529; */
+  /* example implamentation, color: var(--navy-clr) */
+  --btn-clr: #ff4000; 
+  --danger-clr: rgb(161, 0, 0);
+  --background-clr: darkslategray;
+}
+body,
+html,
+#root {
+  height: 100%;
+  margin: 0;
+}
+a {
+  /* color: #00B7FF; */
+  color: navy;
+}
+h1{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+button{
+  padding: .5rem 1.5rem;
+  border-radius: .5rem;
+  background-color: var(--btn-clr);
+  cursor: pointer;
+  font-size: medium;
+}
+/* global header */
+.header{
+  background-color: var(--background-clr);
+  color: white;
+  padding: 3rem;
+  z-index: 2;
+  box-shadow: 0.10rem 0.25rem .9rem black;
+}
+.header-title{
+  font-size: 3rem;
+}
+.nav-btns{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding-top: 2rem;
+}
+/* intro page */
+.intro-page-pic{
+  background-image: url(../images/intro-user-on-computer.jpg);
+  background-size: cover;
+  background-position: bottom;
+  height: 40rem;
+  position: relative;
+}
+.intro-page-pic-credit{
+  color: black;
+  font-size: small;
+  position: absolute;
+  left: 0.5rem;
+  bottom: 0.5rem;
+}
+.intro-page-pic-credit a{
+  color: #ff4000;
+}
+.intro-page-hook{
+  padding: 8rem 3rem;
+  background-color: var(--background-clr);
+  color: white;
+  z-index: 2;
+  box-shadow: 0.10rem 0.25rem .9rem black;
+}
+.intro-page-hook-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.em_word{
+  color: var(--btn-clr);
+}
+.shrink_word{
+  color: #ff4000;
+  font-size: x-large;
+}
+.intro-page-features{
+  padding: 4rem 2rem;
+  background-color: white;
+}
+.intro-page-features li{
+  font-size: x-large;
+}
+.intro-page-testimonial{
+  padding: 4rem 4rem;
+  background-color: gray;
+}
+.intro-page-testimonial h1{
+  padding-bottom: 2rem;
+}
+.intro-page-call-to-action{
+  background-color: var(--background-clr);
+  color: white;
+  padding: 3rem 0;
+  text-align: center;
+}
+.intro-page-call-to-action-options{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.intro-page-logged-in-content{
+  padding: 0 4rem;
+}
+.intro-page-logged-in-greeting{
+  padding: 4rem 0;
+}
+.intro-page-logged-in-content form{
+  padding-bottom: 5rem;
+}
+.all-messages-container{
+  /* border: 2px solid black;
+  border-radius: 1rem; */
+  max-height: 80rem;
+  overflow-y: scroll;
+  padding: 1rem;
+  border-left: 1rem solid #ff4000;
+  border-top: 2px solid #ff4000;
+  border-bottom: 2px solid #ff4000;
+  margin-bottom: 3rem;
+}
+.user-message{
+  border: 1px solid black;
+  border-radius: 3rem 3rem 0 3rem;
+  padding: 1rem 2rem;
+  box-shadow: 0.10rem 0.25rem .9rem black;
+  margin: 3rem;
+  background-color: hsl(15, 100%, 80%);
+  margin-left: 8rem;
+  margin-right: 1rem;
+  
+}
+.other-clients-messages{
+  border: 1px solid black;
+  border-radius: 3rem 3rem 3rem 0;
+  padding: 1rem 2rem;
+  box-shadow: 0.10rem 0.25rem .9rem black;
+  margin: 3rem;
+  background-color: hsl(0, 0%, 80%);
+  background-color: hsl(180, 25%, 80%);
+  margin-left: 1rem;
+  margin-right: 8rem;
+}
+.sign-up-page,
+.login-page{
+  padding: 3rem;
+}
+/* ---------- HERE ---------- */
+
+
+.main-page-body-section{
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-clr);
+  color: white;
+  z-index: 2;
+  box-shadow: 0.10rem 0.25rem .9rem black;
 }
 
-a {
-  color: #00B7FF;
+
+
+
+
+.intro-login,
+.intro-sign-up{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .button>h1>span{
+  background-color: var(--background-clr);
+} */
