@@ -1,5 +1,5 @@
 // need all the models needed to be able to access and manipulate them
-
+const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const User= require("../models/user-model")
@@ -57,30 +57,29 @@ exports.sign_up_form_POST = [
     asyncHandler(async (req, res, next)=>{
       const errors = validationResult(req);
 
-      //create new user obj with validated and sanitized data
-
-      const user = new User({
-        // model-values: first_name, username, password
-        //field-names: first_name, username, password, confirm_password
-        first_name: req.body.first_name,
-        username: req.body.username,
-        password: req.body.password,
-      });
-
-      //if err, render form with sanitized val and feedback
-      if(!errors.isEmpty()){
+      if (!errors.isEmpty()) {
         res.render("sign_up_form", {
-            title: "Sign-up Form",
-            user: user,
-            errors: errors.array(),
+          title: "Sign-up Form",
+          user: req.body,
+          errors: errors.array(),
         });
         return;
-      }else{
-        //form is valid and save data for user 
-        await user.save();
-        //redirect to home page for now
-        //but info should be saved on db
-        res.redirect("/");
+      } else {
+        try{
+          //hash password using bcryptjs
+          const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+          const user= new User({
+            first_name: req.body.first_name,
+            username: req.body.username,
+            password: hashedPassword,
+          });
+
+          await user.save();
+          res.redirect("/");
+        } catch(err){
+          return next(err);
+        }
       }
     }), 
 ];

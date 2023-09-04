@@ -1,3 +1,4 @@
+const bcrypt= require("bcryptjs");
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -11,13 +12,28 @@ require("dotenv").config();
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-const chatroomRouter= require("./routes/chatroom")
+const chatroomRouter= require("./routes/chatroom");
+
+const compression= require("compression");
+const helmet= require("helmet");
 
 var app = express();
 
+// Set up rate limiter: maximum of twenty requests per minute
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 90, //90 requests per minute
+});
+// Apply rate limiter to all requests
+app.use(limiter);
+
 const mongoose= require("mongoose");
 mongoose.set("strictQuery", false);
-const mongodb= process.env.mongoConnStr;
+
+const dev_db_url = process.env.mongoConnStr;
+
+const mongodb= process.env.MONGODB_URI || dev_db_url;
 
 main().catch((err)=>console.log(err));
 async function main(){
@@ -39,7 +55,9 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
-      if (user.password !== password) {
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) {
+        // passwords do not match!
         return done(null, false, { message: "Incorrect password" });
       }
       return done(null, user);
@@ -79,11 +97,19 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression()); // compress all routes
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/chatroom", chatroomRouter);
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  })
+);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
