@@ -172,11 +172,13 @@ button{
   margin-right: 8rem;
 }
 .sign-up-page,
-.login-page{
+.login-page,
+.update-account-page,
+.delete-account-page{
   padding: 3rem;
 }
 /* ---------- HERE ---------- */
-
+/* 
 
 .main-page-body-section{
   padding: 3rem;
@@ -212,7 +214,7 @@ button{
 
 
 
-
+ */
 
 
 /* .button>h1>span{

@@ -27,12 +27,14 @@ block content
         br
         br
         button(type="submit") Submit
-      br
+      //- br
       br
       if errors 
           ul 
               for error in errors 
                   li!= error.msg
+
+    h2 Once you submit the Sign-up Form, a new account will be created. You will be taken back to the home page. Sign in with your credentials, and share a message.
 
     //- names: first_name, username, password, confirm_password
     //- also brought in "user" for improperly filled forms

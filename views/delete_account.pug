@@ -1,32 +1,33 @@
 extends layout
 
 block content
-    h1 #{title}
-    br
-    h2 #[strong Are you sure you want to delete your account?]
-    h2 #[strong Deleting your account will also delete all of your comments/messages.]
-    h2 #[strong This action cannot be undone.]
-    br
-    br
-    form(action="", method="POST")
-        input(type="hidden", name="deleteUser" value=user._id)
-        input(type="hidden", name="deleteAllUserMessages" value=all_messages._id)
+    div.delete-account-page
+        h1 #{title}
         br
-        button(type="submit") Yes, Delete.
-    br
-    br
+        h2 #[strong Are you sure you want to delete your account?]
+        h2 #[strong Deleting your account will also delete all of your comments/messages.]
+        h2 #[strong This action cannot be undone.]
+        br
+        br
+        form(action="", method="POST")
+            input(type="hidden", name="deleteUser" value=user._id)
+            input(type="hidden", name="deleteAllUserMessages" value=all_messages._id)
+            br
+            button(type="submit") Yes, Delete.
+        br
+        br
 
-    form(action="/", method="GET")
-        input(type="hidden")
-        button(type="submit") No, ignore, and return. 
+        form(action="/", method="GET")
+            input(type="hidden")
+            button(type="submit") No, ignore, and return. 
 
-    
-    //- if all_messages 
-    //-     ul  
-    //-         for message in all_messages 
-    //-             li!= `"${message.message}"`
+        
+        //- if all_messages 
+        //-     ul  
+        //-         for message in all_messages 
+        //-             li!= `"${message.message}"`
 
-//- imported values: 
-        title: "Delete Account",
-        user: user,
-        all_messages: allMessages,
+    //- imported values: 
+            title: "Delete Account",
+            user: user,
+            all_messages: allMessages,
